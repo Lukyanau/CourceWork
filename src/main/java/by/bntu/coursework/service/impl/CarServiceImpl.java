@@ -1,6 +1,8 @@
 package by.bntu.coursework.service.impl;
 
+import by.bntu.coursework.dao.CarDao;
 import by.bntu.coursework.dao.impl.CarDaoImpl;
+import by.bntu.coursework.dao.impl.UserDaoImpl;
 import by.bntu.coursework.entity.Car;
 import by.bntu.coursework.exception.DaoException;
 import by.bntu.coursework.exception.ServiceException;
@@ -20,6 +22,18 @@ public class CarServiceImpl implements CarService {
         return instance;
     }
 
+
+    @Override
+    public boolean add(Car car) throws ServiceException {
+        boolean isAdded;
+        CarDaoImpl carDao = CarDaoImpl.getInstance();
+        try {
+            isAdded = carDao.add(car);
+        } catch (DaoException exp) {
+            throw new ServiceException(exp);
+        }
+        return isAdded;
+    }
 
     @Override
     public List<Car> findByMark(String mark) throws ServiceException {
@@ -42,7 +56,9 @@ public class CarServiceImpl implements CarService {
     public boolean isActivateCar(int id) throws ServiceException {
         boolean isChange = false;
         CarDaoImpl carDao = CarDaoImpl.getInstance();
-        // TODO: 29.09.2020 validate id
+        if (id < 1) {
+            return false;
+        }
         try {
             Car foundCar = carDao.findCarById(id);
             if (foundCar == null) {
@@ -58,5 +74,47 @@ public class CarServiceImpl implements CarService {
         }
         return isChange;
     }
+
+    @Override
+    public List<Car> findAll() throws ServiceException {
+        CarDaoImpl carDao = CarDaoImpl.getInstance();
+        try {
+            List<Car> allCars = carDao.findAll();
+            return allCars;
+        } catch (DaoException exp) {
+            throw new ServiceException(exp);
+        }
+    }
+
+    public List<Car> findActiveCars(String mark) throws ServiceException {
+        CarDaoImpl carDao = CarDaoImpl.getInstance();
+        try {
+            List<Car> activeCars = carDao.findActiveCars(mark);
+            return activeCars;
+        } catch (DaoException exp){
+            throw new ServiceException(exp);
+        }
+    }
+
+
+
+    public boolean ban(int carId) throws ServiceException {
+        CarDaoImpl carDao = CarDaoImpl.getInstance();
+        try {
+            return carDao.banCar(carId);
+        } catch (DaoException exp) {
+            throw new ServiceException(exp);
+        }
+    }
+
+    public boolean unBan(int carId) throws ServiceException {
+        CarDaoImpl carDao = CarDaoImpl.getInstance();
+        try {
+            return carDao.unBanCar(carId);
+        } catch (DaoException exp) {
+            throw new ServiceException(exp);
+        }
+    }
+
 
 }

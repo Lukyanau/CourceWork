@@ -34,6 +34,14 @@ public class User extends Entity {
         this.surname = surname;
         this.balance = balance;
     }
+    public User(String login, String password, String name, String surname, int balance,String roleName) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.balance = balance;
+        this.role = Role.valueOf(roleName.toUpperCase());
+    }
 
     public User(int userId, String login, String password, String name, String surname, int balance, String roleName) {
         this.userId = userId;

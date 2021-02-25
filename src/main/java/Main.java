@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) throws DaoException, ServiceException {
-        System.out.println(UserValidator.checkSurnameInput(null));
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        userDao.checkLoginUnique("katysha2515");
     }
-
 }

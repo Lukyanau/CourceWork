@@ -7,24 +7,27 @@ import by.bntu.coursework.exception.ServiceException;
 import by.bntu.coursework.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class SignInCommand implements Command {
     private final UserServiceImpl userService = UserServiceImpl.getInstance();
 
     @Override
     public String execute(HttpServletRequest request) {
+        HttpSession session = request.getSession();
         String page;
         try {
             String login = request.getParameter("username");
             String password = request.getParameter("password");
             User checkedUser = userService.checkPassword(login, password);
-            if (checkedUser != null && checkedUser.getRole() == User.Role.USER) {
-                page = PagePath.PASSING_HOME;
-            }else if (checkedUser != null && checkedUser.getRole() == User.Role.ADMIN) {
-                page = PagePath.PASSING_ABOUT_US;
-            } else {
+            if (checkedUser == null) {
                 page = PagePath.SIGN_IN;
                 request.setAttribute("errorMessage", "Incorrect login or password");
+            } else {
+                User.Role currentRole = checkedUser.getRole();
+                session.setAttribute("sessionRole", currentRole);
+                session.setAttribute("sessionUser", checkedUser);
+                page = PagePath.PASSING_HOME;
             }
         } catch (ServiceException exp) {
             page = PagePath.ERROR;

@@ -2,10 +2,10 @@
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/registration.css">
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
 </head>
 <body style="background-image: url(${pageContext.request.contextPath}/images/signIn.jpg);background-size: cover;">
 <div class="container">
@@ -20,29 +20,34 @@
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
+                                    <input type="text" name="first_name" id="first_name" class="form-control input-sm"
+                                           placeholder="First Name">
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+                                    <input type="text" name="last_name" id="last_name" class="form-control input-sm"
+                                           placeholder="Last Name">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="login" id="login" class="form-control input-sm" placeholder="Login">
+                            <input type="text" name="login" id="login" class="form-control input-sm"
+                                   placeholder="Login">
                         </div>
 
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                                    <input type="password" name="password" id="password" class="form-control input-sm"
+                                           placeholder="Password">
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+                                    <input type="password" name="password_confirmation" id="password_confirmation"
+                                           class="form-control input-sm" placeholder="Confirm Password">
                                 </div>
                             </div>
                         </div>

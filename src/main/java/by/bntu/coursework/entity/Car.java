@@ -2,16 +2,27 @@ package by.bntu.coursework.entity;
 
 import java.util.Objects;
 
-public class Car extends Entity{
-   public enum Marks{
-        BMW,
-        AUDI,
-        MERCEDES,
-        TESLA,
-        VOLKSWAGEN,
-        PEUGEOT,
-        RENAULT,
-    }
+public class Car extends Entity {
+    public enum Marks {
+        BMW("bmw"),
+        AUDI("audi"),
+        MERCEDES("mercedes"),
+        TESLA("tesla"),
+        VOLKSWAGEN("volkswagen"),
+        PEUGEOT("peugeot"),
+        RENAULT("renault");
+
+        private final String mark;
+
+        Marks(String mark) {
+            this.mark = mark;
+        }
+
+        public String getNameMark() {
+            return mark;
+        }
+        }
+
     private int carId;
     private String description;
     private String title;
@@ -29,7 +40,8 @@ public class Car extends Entity{
         this.status = status;
         this.mark = Marks.valueOf(mark.toUpperCase());
     }
-    public Car( String description, String title, String color, int price, boolean status, String mark) {
+
+    public Car(String description, String title, String color, int price, boolean status, String mark) {
         this.description = description;
         this.title = title;
         this.color = color;

@@ -1,5 +1,7 @@
 package by.bntu.coursework.validator;
 
+import by.bntu.coursework.exception.DaoException;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -54,15 +56,31 @@ public class UserValidatorTest {
         assertFalse(condition);
     }
 
-    @Test
-    public void checkSignUpParametersShouldReturnTrue(){
-        boolean condition = UserValidator.checkSingUpParameters("Ivan","Lukyanau","luki4","12345");
+    @DataProvider(name = "CorrectDataToCheckSignUpParameters")
+    public Object[][] createCorrectDataToCheckSignUpParameters(){
+        return new Object[][]{
+                {"Ivan","Lukyanau","luki44","12345"},
+                {"Ivan","Yanushkevich","yanush","99999"},
+                {"Alina","Kurpata","demotivetor","11111"}
+        };
+    }
+    @DataProvider(name = "IncorrectDataToCheckSignUpParameters")
+    public Object[][] createIncorrectDataToCheckSignUpParameters(){
+        return new Object[][]{
+                {"Ivan123","Lukyanau","luki44","12345"},
+                {"999Ivan","Yanushkevich","yanush","99999"},
+                {"000Alina","Kurpata","demotivetor","11111"}
+        };
+    }
+    @Test(dataProvider = "CorrectDataToCheckSignUpParameters")
+    public void checkSignUpParametersShouldReturnTrue(String name, String surname, String login, String password) throws DaoException {
+        boolean condition = UserValidator.checkSingUpParameters(name, surname, login, password);
         assertTrue(condition);
     }
 
-    @Test
-    public void checkSignUpParametersShouldReturnFalse(){
-        boolean condition = UserValidator.checkSingUpParameters("Ivan123","Lukyanau321","luki4","12345");
+    @Test(dataProvider = "IncorrectDataToCheckSignUpParameters")
+    public void checkSignUpParametersShouldReturnFalse(String name, String surname, String login, String password) throws DaoException {
+        boolean condition = UserValidator.checkSingUpParameters(name, surname, login, password);
         assertFalse(condition);
     }
 }

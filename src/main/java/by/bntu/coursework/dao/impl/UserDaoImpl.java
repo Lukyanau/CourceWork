@@ -121,4 +121,21 @@ public class UserDaoImpl implements UserDao {
         }
 
     }
+
+    public boolean checkLoginUnique(String login) throws DaoException {
+        try (Connection connection = new ConnectionCreator().getConnection();
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.CHECK_UNIQUE_LOGIN)) {
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                System.out.println(false);
+                return false;
+            }
+            System.out.println(true);
+            return true;
+        } catch (SQLException exp) {
+            throw new DaoException(exp);
+        }
+
+    }
 }

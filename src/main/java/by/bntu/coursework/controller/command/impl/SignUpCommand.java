@@ -3,6 +3,7 @@ package by.bntu.coursework.controller.command.impl;
 import by.bntu.coursework.controller.command.Command;
 import by.bntu.coursework.controller.command.PagePath;
 import by.bntu.coursework.creator.UserCreator;
+import by.bntu.coursework.exception.DaoException;
 import by.bntu.coursework.exception.ServiceException;
 import by.bntu.coursework.service.impl.UserServiceImpl;
 import by.bntu.coursework.validator.UserValidator;
@@ -22,15 +23,16 @@ public class SignUpCommand implements Command {
             String surname = request.getParameter("last_name");
             String login = request.getParameter("login");
             String password = request.getParameter("password");
-            String confirm_password = request.getParameter("password_confirmation");
-            if (userService.verifyPasswords(password, confirm_password) && UserValidator.checkSingUpParameters(name,surname,login,password)) {
-                userService.signUpUser(userCreator.createUser(login,password,name,surname));
-                page = PagePath.SIGN_IN;
+            String confirmPassword = request.getParameter("password_confirmation");
+            if (userService.verifyPasswords(password, confirmPassword) && UserValidator.checkSingUpParameters(name, surname, login, password)) {
+                userService.signUpUser(userCreator.createUser(login, password, name, surname));
+                page = PagePath.NOTIFICATION;
+                request.setAttribute("message","Your account successfully created, please sign in");
             } else {
                 page = PagePath.PASSING_REGISTRATION;
                 request.setAttribute("errorMessage", "Incorrect inputs");
             }
-        } catch (ServiceException exp) {
+        } catch (ServiceException | DaoException exp) {
             System.out.println(exp.getMessage());
             page = PagePath.ERROR;
         }
